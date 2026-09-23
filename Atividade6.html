@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cliente</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        .formulario {
+            width: 300px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="formulario">
+        <h2>Cadastro de Cliente</h2>
+
+        <input type="text" id="nome" placeholder="Digite seu nome">
+
+        <input type="number" id="idade" placeholder="Digite sua idade">
+
+        <input type="text" id="cidade" placeholder="Digite sua cidade">
+
+        <button onclick="cadastrar()">Cadastrar</button>
+
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function cadastrar() {
+            let nome = document.getElementById("nome").value;
+            let idade = document.getElementById("idade").value;
+            let cidade = document.getElementById("cidade").value;
+
+            document.getElementById("resultado").innerText =
+                "Nome: " + nome +
+                " | Idade: " + idade +
+                " | Cidade: " + cidade;
+        }
+    </script>
+
+</body>
+</html>

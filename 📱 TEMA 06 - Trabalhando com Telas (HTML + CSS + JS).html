@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://almeida-cma.github.io/mob06/tema6.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 TEMA 06 - Trabalhando com Telas (HTML + CSS + JS)</title>
+    <style>
+        /* ============================================================
+           DESIGN SYSTEM & ESTILOS GERAIS
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #0c4a6e 50%, #0f2027 100%);
+            padding: 20px 14px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 50%, #7c3aed 100%);
+            border-radius: 20px;
+            padding: 35px 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header h1 span { color: #fef08a; }
+
+        .header p {
+            opacity: 0.95;
+            font-size: 1.05rem;
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            backdrop-filter: blur(5px);
+        }
+
+        /* ============================================================
+           CARDS DE CONTEÚDO
+           ============================================================ */
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 26px;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .card h2 {
+            color: #2563eb;
+            margin-bottom: 14px;
+            border-left: 5px solid #0ea5e9;
+            padding-left: 12px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h3 {
+            color: #1e1b4b;
+            margin: 20px 0 10px 0;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card p {
+            color: #334155;
+            line-height: 1.75;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .card ul, .card ol {
+            color: #334155;
+            line-height: 1.8;
+            margin: 8px 0 14px 25px;
+            font-size: 0.95rem;
+        }
+
+        /* Callouts / Highlight Boxes */
+        .highlight-box {
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin: 14px 0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .highlight-box.yellow { background: #fffbe8; border-left: 5px solid #f59e0b; color: #854d0e; }
+        .highlight-box.blue   { background: #e0f2fe; border-left: 5px solid #0284c7; color: #0369a1; }
+        .highlight-box.green  { background: #dcfce7; border-left: 5px solid #16a34a; color: #15803d; }
+        .highlight-box.purple { background: #f3e8ff; border-left: 5px solid #9333ea; color: #6b21a8; }
+
+        .highlight-box code, .question code {
+            background: #f1f5f9;
+            color: #2563eb;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 0.88rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Grid de Conceitos */
+        .conceito-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .conceito-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            transition: 0.2s;
+        }
+
+        .conceito-card:hover {
+            transform: translateY(-3px);
+            border-color: #2563eb;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .conceito-card .tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+            color: #2563eb;
+        }
+
+        .conceito-card h4 {
+            font-size: 1rem;
+            color: #1e1b4b;
+            margin-bottom: 6px;
+        }
+
+        .conceito-card p {
+            font-size: 0.82rem;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Tabelas */
+        .tabela-logica {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.88rem;
+        }
+
+        .tabela-logica th {
+            background: linear-gradient(135deg, #1e1b4b, #2563eb);
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabela-logica td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+
+        .tabela-logica tr:hover td { background: #f8fafc; }
+
+        /* Blocos de Código OneCompiler */
+        .code-wrapper {
+            position: relative;
+            margin: 14px 0 24px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            padding: 8px 16px;
+            border-bottom: 1px solid #334155;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .code-title {
+            color: #38bdf8;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        .code-actions { display: flex; gap: 6px; }
+
+        .code-actions button {
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: white;
+        }
+
+        .copy-btn { background: #10b981; }
+        .copy-btn:hover { background: #059669; }
+        .run-btn { background: #2563eb; }
+        .run-btn:hover { background: #1d4ed8; transform: scale(1.02); }
+
+        .code-block {
+            background: #090d16;
+            color: #e2e8f0;
+            padding: 16px 18px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.78rem;
+            line-height: 1.7;
+            overflow-x: auto;
+            white-space: pre;
+            margin: 0;
+            max-height: 400px;
+        }
+
+        .copy-feedback {
+            position: absolute;
+            top: 42px;
+            right: 14px;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .copy-feedback.show { opacity: 1; }
+
+        /* ===== CAIXAS DE EXPLICAÇÃO DOS LABS ===== */
+        .explicacao-lab {
+            background: #f8fafc;
+            border-left: 5px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: -10px 0 30px 0;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: #334155;
+        }
+
+        .explicacao-lab h4 {
+            color: #0369a1;
+            margin-bottom: 14px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explicacao-lab h5 {
+            color: #1e293b;
+            margin: 18px 0 8px 0;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .explicacao-lab p {
+            margin-bottom: 10px;
+        }
+
+        .explicacao-lab ul,
+        .explicacao-lab ol {
+            margin: 8px 0 12px 22px;
+        }
+
+        .explicacao-lab li {
+            margin-bottom: 4px;
+        }
+
+        .explicacao-lab code {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 1px solid #bae6fd;
+        }
+
+        .explicacao-lab pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.78rem;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .explicacao-lab table.tabela-logica {
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+
+        .explicacao-lab table.tabela-logica th {
+            background: linear-gradient(135deg, #0369a1, #0ea5e9);
+            font-size: 0.82rem;
+        }
+
+        .explicacao-lab table.tabela-logica td {
+            font-size: 0.85rem;
+        }
+
+        /* Quiz */
+        .question {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid #2563eb;
+            border-top: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .question.tf { border-left-color: #0284c7; }
+
+        .question-header {
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.94rem;
+            line-height: 1.5;
+        }
+
+        .question-number {
+            background: #2563eb;
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 26px;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .question.tf .question-number { background: #0284c7; }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .options.tf {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 320px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover:not(.disabled) {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .option input[type="radio"] { width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+        .option label { font-size: 0.9rem; cursor: pointer; flex: 1; line-height: 1.4; color: #334155; }
+
+        .option.correct { border-color: #16a34a; background: #dcfce7; font-weight: bold; }
+        .option.wrong   { border-color: #dc2626; background: #fee2e2; }
+        .option.disabled { opacity: 0.7; cursor: default; }
+
+        .result-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 3px solid #2563eb;
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result-box.show { display: block; }
+        .score { font-size: 3rem; font-weight: 900; color: #2563eb; }
+
+        .feedback-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+
+        .feedback-item.correct { color: #15803d; }
+        .feedback-item.wrong   { color: #b91c1c; }
+        .feedback-item .explicacao {
+            color: #64748b;
+            font-size: 0.82rem;
+            margin-left: 22px;
+            font-style: italic;
+            margin-top: 2px;
+        }
+
+        /* Botões Globais */
+        .btn {
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 4px;
+            transition: 0.2s;
+        }
+
+        .btn:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3); }
+        .btn-secondary { background: #64748b; }
+        .btn-success { background: #10b981; }
+
+        /* Footer */
+        .footer-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .destaque-footer {
+            background: #fff3cd;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border-left: 5px solid #ffc107;
+            margin-bottom: 18px;
+            font-size: 0.9rem;
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: all 0.3s;
+            border: 2px solid #28a745;
+            font-size: 0.95rem;
+        }
+
+        .footer-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.2);
+            background: #d4edda;
+        }
+
+        .btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .options.tf { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <header class="header">
+            <h1>📱 TEMA <span>06</span> • Trabalhando com Telas</h1>
+            <p>Do Splash Screen à navegação entre telas: HTML, CSS e JavaScript aplicados à construção de interfaces interativas</p>
+            <div class="badge-group">
+                <span class="badge">🚀 Splash Screen</span>
+                <span class="badge">🖥️ Manipulação do DOM</span>
+                <span class="badge">🎨 Temas Claro/Escuro</span>
+                <span class="badge">📋 Formulários</span>
+                <span class="badge">🛒 Carrinho &amp; Estoque</span>
+                <span class="badge">💻 OneCompiler Ready</span>
+                <span class="badge">📝 15 Questões com Gabarito</span>
+            </div>
+        </header>
+
+        <!-- ============================================================
+        SEÇÃO 1: O QUE É UMA TELA?
+        ============================================================ -->
+        <section class="card">
+            <h2>🖥️ 1. O que é uma "Tela" em um Aplicativo?</h2>
+
+            <div class="highlight-box blue">
+                💡 <strong>Conceito-chave:</strong> Uma <strong>tela</strong> é um conjunto de elementos visuais (HTML) organizados por estilos (CSS) que respondem a interações do usuário (JavaScript). Em aplicações web, cada "tela" geralmente é uma <code>&lt;div&gt;</code> com <code>id</code> próprio, que pode ser <strong>exibida</strong> ou <strong>ocultada</strong> conforme a necessidade.
+            </div>
+
+            <h3>🔄 Ciclo de vida de uma tela</h3>
+            <p>Toda tela passa por 4 etapas fundamentais no desenvolvimento front-end:</p>
+
+            <div class="conceito-grid">
+                <div class="conceito-card">
+                    <span class="tag">1. Estrutura</span>
+                    <h4>HTML</h4>
+                    <p>Define os elementos visíveis: títulos, campos, botões, imagens.</p>
+                </div>
+                <div class="conceito-card">
+                    <span class="tag">2. Estilo</span>
+                    <h4>CSS</h4>
+                    <p>Aplica cores, espaçamentos, bordas e posicionamento.</p>
+                </div>
+                <div class="conceito-card">
+                    <span class="tag">3. Comportamento</span>
+                    <h4>JavaScript</h4>
+                    <p>Reage a cliques, digitação e mudanças de valor.</p>
+                </div>
+                <div class="conceito-card">
+                    <span class="tag">4. Transição</span>
+                    <h4>Troca de Tela</h4>
+                    <p>Alterna entre telas com <code>display: none/block</code> ou classes CSS.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        SEÇÃO 2: SPLASH SCREEN (TELA DE ABERTURA)
+        ============================================================ -->
+        <section class="card">
+            <h2>🚀 2. Splash Screen – A Tela de Abertura</h2>
+
+            <p>A <strong>Splash Screen</strong> é a primeira tela que aparece quando o aplicativo é aberto. Ela serve para:</p>
+            <ul>
+                <li>Mostrar a identidade visual (logo, nome do app).</li>
+                <li>Exibir uma mensagem de carregamento ("Carregando...").</li>
+                <li>Dar tempo para o sistema se preparar antes de mostrar o conteúdo principal.</li>
+            </ul>
+
+            <div class="highlight-box green">
+                ⏱️ <strong>Como funciona?</strong> Usamos <code>setTimeout()</code> para agendar a troca de telas após alguns segundos. Cada <code>setTimeout</code> executa uma função depois de um tempo determinado (em milissegundos).
+            </div>
+
+            <h3>🎯 Estrutura de uma Splash Screen funcional</h3>
+            <div class="conceito-grid">
+                <div class="conceito-card">
+                    <span class="tag">Tela 1</span>
+                    <h4>Splash (#splash)</h4>
+                    <p>Visível ao abrir. Mostra "Carregando..." e depois mensagens de progresso.</p>
+                </div>
+                <div class="conceito-card">
+                    <span class="tag">Tela 2</span>
+                    <h4>Conteúdo (#conteudo)</h4>
+                    <p>Começa com <code>display: none</code>. É exibida após 3 segundos.</p>
+                </div>
+                <div class="conceito-card">
+                    <span class="tag">Transição</span>
+                    <h4>setTimeout()</h4>
+                    <p>Agenda a troca: splash desaparece, conteúdo aparece.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box yellow">
+                🧠 <strong>Detalhamento completo do Splash:</strong>
+                <ol style="margin: 6px 0 0 20px;">
+                    <li><strong>0s:</strong> A tela #splash aparece com "Carregando...".</li>
+                    <li><strong>1s:</strong> A mensagem muda para "⚙️ Preparando...".</li>
+                    <li><strong>2s:</strong> A mensagem muda para "🚀 Quase pronto...".</li>
+                    <li><strong>3s:</strong> A #splash recebe <code>display: none</code> e a #conteudo recebe <code>display: block</code>.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        SEÇÃO 3: PRINCIPAIS CONCEITOS DAS ATIVIDADES
+        ============================================================ -->
+        <section class="card">
+            <h2>📚 3. Principais Conceitos Trabalhados nas Atividades</h2>
+
+            <p>As 10 atividades a seguir exploram conceitos fundamentais que todo desenvolvedor front-end precisa dominar:</p>
+
+            <table class="tabela-logica">
+                <thead>
+                    <tr>
+                        <th>Atividade</th>
+                        <th>Conceito Principal</th>
+                        <th>Elemento HTML</th>
+                        <th>Recurso JavaScript</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1. Identificação</td>
+                        <td>Captura de texto e exibição</td>
+                        <td><code>&lt;input type="text"&gt;</code></td>
+                        <td><code>.value</code>, <code>.innerText</code></td>
+                    </tr>
+                    <tr>
+                        <td>2. Carrinho</td>
+                        <td>Cálculo com multiplicação</td>
+                        <td><code>&lt;input type="number"&gt;</code></td>
+                        <td><code>parseFloat()</code>, <code>toFixed()</code></td>
+                    </tr>
+                    <tr>
+                        <td>3. Estoque</td>
+                        <td>Comparação lógica</td>
+                        <td><code>&lt;input type="number"&gt;</code></td>
+                        <td><code>if/else</code>, <code>.className</code></td>
+                    </tr>
+                    <tr>
+                        <td>4. Pagamento</td>
+                        <td>Múltiplas decisões</td>
+                        <td><code>&lt;select&gt;</code></td>
+                        <td><code>if/else if/else</code></td>
+                    </tr>
+                    <tr>
+                        <td>5. Endereços</td>
+                        <td>Seleção exclusiva</td>
+                        <td><code>&lt;input type="radio"&gt;</code></td>
+                        <td><code>querySelector()</code></td>
+                    </tr>
+                    <tr>
+                        <td>6. Cadastro</td>
+                        <td>Múltiplos inputs</td>
+                        <td>text + number</td>
+                        <td>Concatenação de strings</td>
+                    </tr>
+                    <tr>
+                        <td>7. Cadastro c/ Select</td>
+                        <td>Select + Radio</td>
+                        <td><code>&lt;select&gt;</code>, radio</td>
+                        <td><code>querySelector()</code></td>
+                    </tr>
+                    <tr>
+                        <td>8. Cadastro c/ Checkbox</td>
+                        <td>Seleção múltipla</td>
+                        <td><code>&lt;input type="checkbox"&gt;</code></td>
+                        <td><code>.checked</code></td>
+                    </tr>
+                    <tr>
+                        <td>9. Carrossel</td>
+                        <td>Navegação entre imagens</td>
+                        <td><code>&lt;img&gt;</code></td>
+                        <td><code>.src</code>, variável de controle</td>
+                    </tr>
+                    <tr>
+                        <td>10. Tema Claro/Escuro</td>
+                        <td>Troca de classes CSS</td>
+                        <td><code>&lt;body&gt;</code></td>
+                        <td><code>.className</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ============================================================
+        SEÇÃO 4: 5 LABORATÓRIOS PRÁTICOS
+        ============================================================ -->
+        <section class="card">
+            <h2>💻 4. Laboratórios Práticos (OneCompiler Ready)</h2>
+            <p>Cada bloco abaixo é um arquivo completo. Clique em <strong>"▶️ Abrir no OneCompiler"</strong> para testar e modificar:</p>
+
+            <!-- LAB 1: SPLASH SCREEN COMPLETO -->
+            <h3>🚀 Lab 1: Splash Screen com Transição de Telas</h3>
+            <div class="highlight-box blue">
+                <strong>Desafio de Teste:</strong> Abra no OneCompiler e observe as 3 mensagens de progresso aparecerem em sequência (1s, 2s, 3s) até a tela inicial substituir a splash.
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 lab1-splash-screen.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'c-lab1')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('c-lab1')">▶️ Abrir no OneCompiler</button>
+                    </div>
+                </div>
+                <pre class="code-block" id="c-lab1">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Tela Splash&lt;/title&gt;
+    &lt;style&gt;
+        body { text-align: center; background: #f8fafc; font-family: sans-serif; padding: 20px; }
+        .card { background: white; max-width: 300px; margin: 30px auto; padding: 20px; border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        #splash { border: 3px solid #2563eb; }
+        #conteudo { display: none; }
+        h1 { color: #2563eb; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="card" id="splash"&gt;
+        &lt;h1&gt;📱 Meu Aplicativo&lt;/h1&gt;
+        &lt;p id="mensagem"&gt;Carregando...&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card" id="conteudo"&gt;
+        &lt;h2&gt;🏠 Página Inicial&lt;/h2&gt;
+        &lt;p&gt;Bem-vindo ao aplicativo!&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        let mensagem = document.getElementById("mensagem");
+
+        setTimeout(function() {
+            mensagem.innerText = "⚙️ Preparando...";
+        }, 1000);
+
+        setTimeout(function() {
+            mensagem.innerText = "🚀 Quase pronto...";
+        }, 2000);
+
+        setTimeout(function() {
+            document.getElementById("splash").style.display = "none";
+            document.getElementById("conteudo").style.display = "block";
+        }, 3000);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                <span class="copy-feedback" id="feedback-c-lab1">✅ Copiado!</span>
+            </div>
+
+            <div class="explicacao-lab">
+                <h4>📖 Entendendo o Lab 1 – Splash Screen</h4>
+
+                <h5>🏗️ Estrutura HTML</h5>
+                <p>Temos <strong>dois cards</strong> no <code>&lt;body&gt;</code>:</p>
+                <ul>
+                    <li><code>#splash</code> — visível ao abrir. Contém o título do app e <code>&lt;p id="mensagem"&gt;</code>.</li>
+                    <li><code>#conteudo</code> — começa invisível (<code>display: none</code>). É a tela final.</li>
+                </ul>
+
+                <h5>🎨 CSS</h5>
+                <p>O segredo está em <code>#conteudo { display: none; }</code>, que esconde a segunda tela até o momento certo. O <code>margin: 30px auto</code> centraliza o card horizontalmente (truque clássico do <code>auto</code>).</p>
+
+                <h5>⚙️ JavaScript</h5>
+                <p>Usamos <strong>3 chamadas de <code>setTimeout()</code></strong>:</p>
+                <ol>
+                    <li><strong>1000ms (1s):</strong> altera o texto para "⚙️ Preparando..."</li>
+                    <li><strong>2000ms (2s):</strong> altera para "🚀 Quase pronto..."</li>
+                    <li><strong>3000ms (3s):</strong> esconde <code>#splash</code> e mostra <code>#conteudo</code></li>
+                </ol>
+                <p>Cada <code>setTimeout(função, tempo)</code> agenda a execução de uma função após <code>tempo</code> milissegundos.</p>
+
+                <h5>🔄 Fluxo de Funcionamento</h5>
+                <ol>
+                    <li>Página carrega → usuário vê <code>#splash</code> com "Carregando..."</li>
+                    <li>Após 1s → "⚙️ Preparando..."</li>
+                    <li>Após 2s → "🚀 Quase pronto..."</li>
+                    <li>Após 3s → <code>#splash</code> desaparece, <code>#conteudo</code> aparece</li>
+                </ol>
+
+                <h5>🧠 Conceitos Importantes</h5>
+                <table class="tabela-logica">
+                    <tbody><tr><th>Conceito</th><th>Onde aparece</th></tr>
+                    <tr><td>Assincronismo</td><td><code>setTimeout()</code></td></tr>
+                    <tr><td>Manipulação do DOM</td><td><code>document.getElementById()</code></td></tr>
+                    <tr><td>Alteração de estilo</td><td><code>.style.display = "block"</code></td></tr>
+                    <tr><td>Troca de telas</td><td><code>display: none</code> ↔ <code>display: block</code></td></tr>
+                </tbody></table>
+            </div>
+
+            <!-- LAB 2: PLAYLIST MUSICAL -->
+            <h3>🎵 Lab 2: Playlist Musical com Navegação</h3>
+            <div class="highlight-box green">
+                <strong>Desafio de Teste:</strong> Navegue pelas 3 músicas da playlist com os botões ⬅️ e ➡️. Observe como a variável <code>numero</code> controla qual música é exibida na tela.
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 lab2-playlist-musical.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'c-lab2')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('c-lab2')">▶️ Abrir no OneCompiler</button>
+                    </div>
+                </div>
+                <pre class="code-block" id="c-lab2">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Playlist Musical&lt;/title&gt;
+    &lt;style&gt;
+        body { text-align: center; background: #f5f3ff; font-family: sans-serif; padding: 20px; }
+        .card { background: white; max-width: 320px; margin: 30px auto; padding: 18px; border: 2px solid #8b5cf6; border-radius: 12px; }
+        img { width: 200px; height: 200px; object-fit: cover; border-radius: 12px; }
+        button { padding: 8px 15px; margin: 5px; background: #8b5cf6; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        button:hover { background: #7c3aed; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="card"&gt;
+        &lt;h2&gt;🎵 Minha Playlist&lt;/h2&gt;
+        &lt;img id="capa" src="https://picsum.photos/id/1015/200/200"&gt;
+        &lt;p id="titulo"&gt;Música 1&lt;/p&gt;
+        &lt;button onclick="anterior()"&gt;⬅️&lt;/button&gt;
+        &lt;button onclick="proxima()"&gt;➡️&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        let numero = 1;
+        function mostrar() {
+            let capa = document.getElementById("capa");
+            let titulo = document.getElementById("titulo");
+            if (numero === 1) {
+                capa.src = "https://picsum.photos/id/1015/200/200";
+                titulo.innerText = "Música 1";
+            } else if (numero === 2) {
+                capa.src = "https://picsum.photos/id/1016/200/200";
+                titulo.innerText = "Música 2";
+            } else {
+                capa.src = "https://picsum.photos/id/1018/200/200";
+                titulo.innerText = "Música 3";
+            }
+        }
+        function proxima() {
+            numero++;
+            if (numero &gt; 3) { numero = 1; }
+            mostrar();
+        }
+        function anterior() {
+            numero--;
+            if (numero &lt; 1) { numero = 3; }
+            mostrar();
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                <span class="copy-feedback" id="feedback-c-lab2">✅ Copiado!</span>
+            </div>
+
+            <div class="explicacao-lab">
+                <h4>📖 Entendendo o Lab 2 – Playlist Musical</h4>
+
+                <h5>🏗️ Estrutura HTML</h5>
+                <p>Um único <code>&lt;div class="card"&gt;</code> com:</p>
+                <ul>
+                    <li><code>&lt;h2&gt;</code> — título fixo "🎵 Minha Playlist"</li>
+                    <li><code>&lt;img id="capa"&gt;</code> — capa que muda dinamicamente</li>
+                    <li><code>&lt;p id="titulo"&gt;</code> — nome da música</li>
+                    <li>Dois <code>&lt;button&gt;</code> com <code>onclick="anterior()"</code> e <code>onclick="proxima()"</code></li>
+                </ul>
+                <p>Os atributos <code>id="capa"</code> e <code>id="titulo"</code> são os "endereços" que o JavaScript usa para encontrar esses elementos.</p>
+
+                <h5>🎨 CSS</h5>
+                <p>Padrão de card centralizado:</p>
+                <ul>
+                    <li><code>max-width: 320px</code> — boa largura para mobile</li>
+                    <li><code>margin: 30px auto</code> — o <code>auto</code> centraliza horizontalmente</li>
+                    <li><code>border: 2px solid #8b5cf6</code> — borda roxa</li>
+                    <li><code>object-fit: cover</code> — a imagem 200×200 preenche sem distorcer</li>
+                    <li><code>button:hover</code> — feedback visual ao passar o mouse</li>
+                </ul>
+
+                <h5>⚙️ JavaScript</h5>
+                <p><strong>Variável de estado:</strong> <code>let numero = 1;</code> guarda qual música está sendo exibida.</p>
+                <p><strong>Função <code>mostrar()</code>:</strong> usa <code>if / else if / else</code> para decidir qual capa e título exibir, alterando <code>.src</code> (da imagem) e <code>.innerText</code> (do texto).</p>
+                <p><strong>Função <code>proxima()</code>:</strong></p>
+                <ul>
+                    <li><code>numero++</code> incrementa</li>
+                    <li><code>if (numero &gt; 3) numero = 1;</code> faz o ciclo circular</li>
+                    <li>Chama <code>mostrar()</code> para atualizar a tela</li>
+                </ul>
+                <p><strong>Função <code>anterior()</code>:</strong> lógica inversa com <code>numero--</code> e <code>if (numero &lt; 1) numero = 3;</code></p>
+
+                <h5>🔄 Fluxo de Funcionamento</h5>
+                <ol>
+                    <li>Página carrega → <code>numero = 1</code> (a capa inicial vem do HTML fixo)</li>
+                    <li>Clique em ➡️ → <code>numero = 2</code> → <code>mostrar()</code> troca imagem/título</li>
+                    <li>Após 3 → volta para 1 (carrossel circular)</li>
+                    <li>⬅️ faz o mesmo no sentido inverso</li>
+                </ol>
+
+                <h5>🧠 Conceitos Importantes</h5>
+                <table class="tabela-logica">
+                    <tbody><tr><th>Conceito</th><th>Onde aparece</th></tr>
+                    <tr><td>Manipulação do DOM</td><td><code>document.getElementById()</code></td></tr>
+                    <tr><td>Eventos</td><td><code>onclick="..."</code></td></tr>
+                    <tr><td>Estado da aplicação</td><td>variável <code>numero</code></td></tr>
+                    <tr><td>Condicionais</td><td><code>if / else if / else</code></td></tr>
+                    <tr><td>Ciclo/carrossel</td><td><code>numero &gt; 3 → 1</code> e <code>numero &lt; 1 → 3</code></td></tr>
+                    <tr><td>Separação HTML/CSS/JS</td><td>3 blocos independentes</td></tr>
+                </tbody></table>
+            </div>
+
+            <!-- LAB 3: AGENDA COM TEMA CLARO/ESCURO -->
+            <h3>🎨 Lab 3: Modo Claro e Escuro de uma Agenda</h3>
+            <div class="highlight-box purple">
+                <strong>Desafio de Teste:</strong> Clique nos botões ☀️ Claro e 🌙 Escuro e observe a classe <code>.escuro</code> sendo aplicada e removida do <code>body</code>.
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 lab3-agenda-tema.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'c-lab3')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('c-lab3')">▶️ Abrir no OneCompiler</button>
+                    </div>
+                </div>
+                <pre class="code-block" id="c-lab3">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Agenda de Contatos&lt;/title&gt;
+    &lt;style&gt;
+        body { text-align: center; background: #ecfeff; color: #083344; font-family: sans-serif; padding: 20px; }
+        .card { max-width: 300px; margin: 30px auto; padding: 20px; background: white; border: 2px solid #06b6d4; border-radius: 12px; }
+        h2 { color: #0891b2; }
+        button { padding: 8px 15px; margin: 5px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .claro { background: #67e8f9; color: #083344; }
+        .escuro { background: #164e63; color: white; }
+        body.escuro { background: #083344; color: white; }
+        body.escuro .card { background: #0e7490; border-color: #67e8f9; }
+        body.escuro h2 { color: #67e8f9; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="card"&gt;
+        &lt;h2&gt;📒 Agenda de Contatos&lt;/h2&gt;
+        &lt;p&gt;Escolha o tema:&lt;/p&gt;
+        &lt;button class="claro" onclick="claro()"&gt;☀️ Claro&lt;/button&gt;
+        &lt;button class="escuro" onclick="escuro()"&gt;🌙 Escuro&lt;/button&gt;
+        &lt;p id="saida"&gt;Tema claro&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        function claro() {
+            document.body.className = "";
+            document.getElementById("saida").innerText = "☀️ Tema claro";
+        }
+        function escuro() {
+            document.body.className = "escuro";
+            document.getElementById("saida").innerText = "🌙 Tema escuro";
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                <span class="copy-feedback" id="feedback-c-lab3">✅ Copiado!</span>
+            </div>
+
+            <div class="explicacao-lab">
+                <h4>📖 Entendendo o Lab 3 – Agenda de Contatos</h4>
+
+                <h5>🏗️ Estrutura HTML</h5>
+                <p>Um card único com:</p>
+                <ul>
+                    <li><code>&lt;h2&gt;</code> — título "📒 Agenda de Contatos"</li>
+                    <li>Dois botões: <code>☀️ Claro</code> e <code>🌙 Escuro</code></li>
+                    <li><code>&lt;p id="saida"&gt;</code> — mostra o tema atual</li>
+                </ul>
+                <p>Os botões usam <code>onclick="claro()"</code> e <code>onclick="escuro()"</code>.</p>
+
+                <h5>🎨 CSS</h5>
+                <p>A grande sacada está na classe <code>.escuro</code>:</p>
+                <ul>
+                    <li>Definimos cores padrão (claro) no <code>body</code> e no <code>.card</code></li>
+                    <li>Criamos <code>body.escuro { ... }</code> sobrescrevendo as cores</li>
+                    <li>Também estilizamos <code>body.escuro .card</code> e <code>body.escuro h2</code></li>
+                </ul>
+                <p>Isso é chamado de <strong>tema baseado em classe</strong>: uma única classe no <code>body</code> reestiliza tudo.</p>
+
+                <h5>⚙️ JavaScript</h5>
+                <p><strong>Função <code>claro()</code>:</strong></p>
+                <ul>
+                    <li><code>document.body.className = "";</code> — remove a classe "escuro"</li>
+                    <li>Atualiza o texto de saída para "☀️ Tema claro"</li>
+                </ul>
+                <p><strong>Função <code>escuro()</code>:</strong></p>
+                <ul>
+                    <li><code>document.body.className = "escuro";</code> — aplica a classe</li>
+                    <li>Atualiza o texto para "🌙 Tema escuro"</li>
+                </ul>
+
+                <h5>🔄 Fluxo de Funcionamento</h5>
+                <ol>
+                    <li>Página carrega → sem classe no <code>body</code> → tema claro padrão</li>
+                    <li>Clique em 🌙 Escuro → classe <code>.escuro</code> adicionada → CSS troca as cores automaticamente</li>
+                    <li>Clique em ☀️ Claro → classe removida → volta ao padrão</li>
+                </ol>
+
+                <h5>🧠 Conceitos Importantes</h5>
+                <table class="tabela-logica">
+                    <tbody><tr><th>Conceito</th><th>Onde aparece</th></tr>
+                    <tr><td>Troca de classe</td><td><code>document.body.className</code></td></tr>
+                    <tr><td>Seletores descendentes</td><td><code>body.escuro .card</code></td></tr>
+                    <tr><td>Eventos</td><td><code>onclick="claro()"</code></td></tr>
+                    <tr><td>Feedback textual</td><td><code>.innerText</code></td></tr>
+                    <tr><td>CSS condicional</td><td>uma classe reestiliza vários elementos</td></tr>
+                </tbody></table>
+            </div>
+
+            <!-- LAB 4: MOCHILA DE VIAGEM COM CHECKBOX -->
+            <h3>🎒 Lab 4: Mochila de Viagem com Checkbox Múltiplo</h3>
+            <div class="highlight-box yellow">
+                <strong>Desafio de Teste:</strong> Marque vários itens da mochila e veja a string final concatenar todos eles separados por espaço.
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 lab4-mochila-viagem.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'c-lab4')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('c-lab4')">▶️ Abrir no OneCompiler</button>
+                    </div>
+                </div>
+                <pre class="code-block" id="c-lab4">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mochila de Viagem&lt;/title&gt;
+    &lt;style&gt;
+        body { text-align: center; background: #f0fdf4; font-family: sans-serif; padding: 20px; }
+        .card { background: white; max-width: 320px; margin: 30px auto; padding: 20px; border: 2px solid #16a34a; border-radius: 12px; }
+        h2 { color: #15803d; }
+        label { display: block; margin: 8px; text-align: left; }
+        button { margin-top: 15px; padding: 10px 20px; background: #16a34a; color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #15803d; }
+        #saida { padding: 10px; background: #dcfce7; border-radius: 8px; margin-top: 12px; font-size: 0.9rem; min-height: 20px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="card"&gt;
+        &lt;h2&gt;🎒 Mochila de Viagem&lt;/h2&gt;
+        &lt;p&gt;O que levar?&lt;/p&gt;
+        &lt;label&gt;&lt;input type="checkbox" id="roupas"&gt; 👕 Roupas&lt;/label&gt;
+        &lt;label&gt;&lt;input type="checkbox" id="higiene"&gt; 🧴 Kit de higiene&lt;/label&gt;
+        &lt;label&gt;&lt;input type="checkbox" id="eletronicos"&gt; 🔌 Eletrônicos&lt;/label&gt;
+        &lt;button onclick="fecharMochila()"&gt;Fechar Mochila&lt;/button&gt;
+        &lt;p id="saida"&gt;&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        function fecharMochila() {
+            let itens = "";
+            if (document.getElementById("roupas").checked) {
+                itens += "Roupas ";
+            }
+            if (document.getElementById("higiene").checked) {
+                itens += "Kit de higiene ";
+            }
+            if (document.getElementById("eletronicos").checked) {
+                itens += "Eletrônicos ";
+            }
+            if (itens === "") {
+                itens = "Nenhum item selecionado";
+            }
+            document.getElementById("saida").innerText = "Mochila pronta: " + itens;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                <span class="copy-feedback" id="feedback-c-lab4">✅ Copiado!</span>
+            </div>
+
+            <div class="explicacao-lab">
+                <h4>📖 Entendendo o Lab 4 – Mochila de Viagem</h4>
+
+                <h5>🏗️ Estrutura HTML</h5>
+                <p>Um card com:</p>
+                <ul>
+                    <li><code>&lt;h2&gt;</code> — título "🎒 Mochila de Viagem"</li>
+                    <li>Três <code>&lt;input type="checkbox"&gt;</code> com <code>id</code> único cada</li>
+                    <li>Um botão "Fechar Mochila" com <code>onclick="fecharMochila()"</code></li>
+                    <li><code>&lt;p id="saida"&gt;</code> — onde o resultado é exibido</li>
+                </ul>
+                <p>Cada checkbox é envolvido por um <code>&lt;label&gt;</code>, o que torna o texto clicável também.</p>
+
+                <h5>🎨 CSS</h5>
+                <ul>
+                    <li><code>label { display: block; }</code> — cada checkbox em sua própria linha</li>
+                    <li><code>#saida</code> tem fundo verde claro, mostrando o resultado final</li>
+                    <li>Botão com <code>hover</code> muda de tom (feedback visual)</li>
+                </ul>
+
+                <h5>⚙️ JavaScript</h5>
+                <p><strong>Variável acumuladora:</strong> <code>let itens = "";</code> começa como string vazia.</p>
+                <p>Verificação de cada checkbox com <code>if (elemento.checked)</code>:</p>
+                <pre class="code-block" style="font-size:0.75rem; max-height:220px;">if (document.getElementById("roupas").checked) {
+    itens += "Roupas ";
+}</pre>
+                <p>Se <code>.checked === true</code>, o nome do item é adicionado à string com <code>+=</code>.</p>
+                <p><strong>Tratamento de caso vazio:</strong> se nenhum checkbox foi marcado, exibimos "Nenhum item selecionado".</p>
+                <p><strong>Exibição:</strong> <code>document.getElementById("saida").innerText = "Mochila pronta: " + itens;</code></p>
+
+                <h5>🔄 Fluxo de Funcionamento</h5>
+                <ol>
+                    <li>Usuário marca os checkboxes que deseja</li>
+                    <li>Clica em "Fechar Mochila"</li>
+                    <li>JavaScript percorre os 3 <code>if</code>, acumulando os itens marcados</li>
+                    <li>Mostra a string final no <code>#saida</code></li>
+                </ol>
+
+                <h5>🧠 Conceitos Importantes</h5>
+                <table class="tabela-logica">
+                    <tbody><tr><th>Conceito</th><th>Onde aparece</th></tr>
+                    <tr><td>Propriedade <code>.checked</code></td><td>verificação de cada checkbox</td></tr>
+                    <tr><td>Concatenação de strings</td><td><code>itens += "Roupas "</code></td></tr>
+                    <tr><td>Estrutura condicional</td><td><code>if (...checked)</code></td></tr>
+                    <tr><td>Tratamento de caso vazio</td><td><code>if (itens === "")</code></td></tr>
+                    <tr><td>Saída no DOM</td><td><code>.innerText</code></td></tr>
+                </tbody></table>
+            </div>
+
+            <!-- LAB 5: NAVEGAÇÃO ENTRE MÚLTIPLAS TELAS -->
+            <h3>🖥️ Lab 5: Navegação entre Múltiplas Telas (Splash → Cadastro → Confirmação)</h3>
+            <div class="highlight-box blue">
+                <strong>Desafio de Teste:</strong> Este é o laboratório mais completo! Ele combina Splash Screen + Formulário + Troca de Telas em uma única aplicação.
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span class="code-title">📄 lab5-multiplas-telas.html</span>
+                    <div class="code-actions">
+                        <button class="copy-btn" onclick="copiarCodigo(this, 'c-lab5')">📋 Copiar</button>
+                        <button class="run-btn" onclick="executarOneCompiler('c-lab5')">▶️ Abrir no OneCompiler</button>
+                    </div>
+                </div>
+                <pre class="code-block" id="c-lab5">&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Múltiplas Telas&lt;/title&gt;
+    &lt;style&gt;
+        body { text-align: center; background: #f8fafc; font-family: sans-serif; padding: 20px; }
+        .card { background: white; max-width: 320px; margin: 30px auto; padding: 20px; border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        #tela-splash { border: 3px solid #2563eb; }
+        #tela-cadastro { display: none; }
+        #tela-confirmacao { display: none; border: 3px solid #16a34a; }
+        input { width: 90%; padding: 8px; margin: 6px 0; border-radius: 6px; border: 1px solid #cbd5e1; }
+        button { margin-top: 10px; padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="card" id="tela-splash"&gt;
+        &lt;h1&gt;📱 Meu App&lt;/h1&gt;
+        &lt;p id="msg-splash"&gt;Carregando...&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card" id="tela-cadastro"&gt;
+        &lt;h2&gt;👤 Cadastro&lt;/h2&gt;
+        &lt;input type="text" id="nome" placeholder="Seu nome"&gt;
+        &lt;input type="text" id="cidade" placeholder="Sua cidade"&gt;
+        &lt;button onclick="confirmar()"&gt;Cadastrar&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card" id="tela-confirmacao"&gt;
+        &lt;h2&gt;✅ Cadastro Realizado&lt;/h2&gt;
+        &lt;p id="resumo"&gt;&lt;/p&gt;
+        &lt;button onclick="voltar()"&gt;Voltar ao início&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        setTimeout(function() {
+            document.getElementById("msg-splash").innerText = "⚙️ Preparando...";
+        }, 1000);
+
+        setTimeout(function() {
+            document.getElementById("tela-splash").style.display = "none";
+            document.getElementById("tela-cadastro").style.display = "block";
+        }, 2000);
+
+        function confirmar() {
+            let nome = document.getElementById("nome").value;
+            let cidade = document.getElementById("cidade").value;
+            document.getElementById("resumo").innerText =
+                "Bem-vindo(a), " + nome + " de " + cidade + "!";
+            document.getElementById("tela-cadastro").style.display = "none";
+            document.getElementById("tela-confirmacao").style.display = "block";
+        }
+
+        function voltar() {
+            document.getElementById("tela-confirmacao").style.display = "none";
+            document.getElementById("tela-cadastro").style.display = "block";
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                <span class="copy-feedback" id="feedback-c-lab5">✅ Copiado!</span>
+            </div>
+
+            <div class="explicacao-lab">
+                <h4>📖 Entendendo o Lab 5 – Múltiplas Telas</h4>
+
+                <h5>🏗️ Estrutura HTML</h5>
+                <p>Este é o laboratório mais completo. Temos <strong>três cards</strong> no <code>&lt;body&gt;</code>:</p>
+                <ul>
+                    <li><code>#tela-splash</code> — visível ao abrir</li>
+                    <li><code>#tela-cadastro</code> — começa escondida (<code>display: none</code>)</li>
+                    <li><code>#tela-confirmacao</code> — também começa escondida</li>
+                </ul>
+                <p>Cada tela tem seu próprio conjunto de elementos (título, inputs ou parágrafos).</p>
+
+                <h5>🎨 CSS</h5>
+                <ul>
+                    <li><code>#tela-cadastro { display: none; }</code> e <code>#tela-confirmacao { display: none; }</code> escondem as duas telas</li>
+                    <li>Bordas coloridas diferentes indicam visualmente cada tela (azul para splash, verde para confirmação)</li>
+                    <li>Inputs com <code>width: 90%</code> para ocupar quase toda a largura do card</li>
+                </ul>
+
+                <h5>⚙️ JavaScript</h5>
+                <p><strong>Fase 1 – Splash:</strong> dois <code>setTimeout</code> agendam a transição:</p>
+                <ul>
+                    <li>1s: altera mensagem para "⚙️ Preparando..."</li>
+                    <li>2s: esconde splash e mostra cadastro</li>
+                </ul>
+                <p><strong>Função <code>confirmar()</code>:</strong></p>
+                <ul>
+                    <li>Captura os valores de <code>#nome</code> e <code>#cidade</code></li>
+                    <li>Monta mensagem personalizada</li>
+                    <li>Esconde <code>#tela-cadastro</code>, mostra <code>#tela-confirmacao</code></li>
+                </ul>
+                <p><strong>Função <code>voltar()</code>:</strong> reverte — esconde confirmação, mostra cadastro novamente.</p>
+
+                <h5>🔄 Fluxo de Funcionamento</h5>
+                <ol>
+                    <li>Página carrega → <code>#tela-splash</code> visível</li>
+                    <li>Após 1s → mensagem muda</li>
+                    <li>Após 2s → splash some, cadastro aparece</li>
+                    <li>Usuário preenche e clica em "Cadastrar" → confirmação aparece</li>
+                    <li>Clique em "Voltar ao início" → retorna ao cadastro</li>
+                </ol>
+
+                <h5>🧠 Conceitos Importantes</h5>
+                <table class="tabela-logica">
+                    <tbody><tr><th>Conceito</th><th>Onde aparece</th></tr>
+                    <tr><td>Assincronismo</td><td><code>setTimeout()</code></td></tr>
+                    <tr><td>Troca de telas</td><td><code>.style.display = "none" / "block"</code></td></tr>
+                    <tr><td>Captura de inputs</td><td><code>.value</code></td></tr>
+                    <tr><td>Concatenação de strings</td><td>"Bem-vindo(a), " + nome</td></tr>
+                    <tr><td>Reutilização de telas</td><td>função <code>voltar()</code></td></tr>
+                    <tr><td>Fluxo multi-etapas</td><td>splash → cadastro → confirmação</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        SEÇÃO 5: QUIZ FORMATIVO (15 QUESTÕES)
+        ============================================================ -->
+        <section class="card" id="sec-quiz">
+            <h2>📝 5. Exercício de Fixação do Tema 06 (15 Questões)</h2>
+            <p>Responda às 15 questões objetivas sobre telas, splash, manipulação do DOM e conceitos das atividades. Clique em <strong>"Verificar Respostas"</strong> ao final:</p>
+
+            <!-- Q1 -->
+            <div class="question" id="q1">
+                <div class="question-header">
+                    <span class="question-number">1</span>
+                    O que é uma "Splash Screen" em um aplicativo?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q1" value="A" disabled=""><label>A tela inicial de abertura que mostra o logo e uma mensagem de carregamento antes do conteúdo principal</label></div>
+                    <div class="option disabled"><input type="radio" name="q1" value="B" disabled=""><label>Um tipo de animação usada apenas em jogos</label></div>
+                    <div class="option disabled"><input type="radio" name="q1" value="C" disabled=""><label>O botão de desligar o aplicativo</label></div>
+                    <div class="option disabled"><input type="radio" name="q1" value="D" disabled=""><label>Uma tela de erro do sistema</label></div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question" id="q2">
+                <div class="question-header">
+                    <span class="question-number">2</span>
+                    Qual função JavaScript é usada para agendar a troca de telas na Splash Screen após um determinado tempo?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q2" value="A" disabled=""><label><code>setTimeout()</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q2" value="B" disabled=""><label><code>setInterval()</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q2" value="C" disabled=""><label><code>delayTime()</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q2" value="D" disabled=""><label><code>waitFor()</code></label></div>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question" id="q3">
+                <div class="question-header">
+                    <span class="question-number">3</span>
+                    Como ocultamos uma tela via CSS para que ela não apareça inicialmente?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q3" value="A" disabled=""><label>Usando <code>display: none;</code> no seletor da tela</label></div>
+                    <div class="option disabled"><input type="radio" name="q3" value="B" disabled=""><label>Usando <code>color: white;</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q3" value="C" disabled=""><label>Deletando o HTML da tela</label></div>
+                    <div class="option disabled"><input type="radio" name="q3" value="D" disabled=""><label>Removendo o CSS inteiro</label></div>
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question" id="q4">
+                <div class="question-header">
+                    <span class="question-number">4</span>
+                    Em uma galeria com navegação sequencial, para que serve uma variável de controle como <code>numero</code> ou <code>indiceAtual</code>?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q4" value="A" disabled=""><label>Armazenar qual item da sequência (imagem, música, filme) está sendo exibido no momento</label></div>
+                    <div class="option disabled"><input type="radio" name="q4" value="B" disabled=""><label>A cor de fundo da página</label></div>
+                    <div class="option disabled"><input type="radio" name="q4" value="C" disabled=""><label>O tamanho da fonte</label></div>
+                    <div class="option disabled"><input type="radio" name="q4" value="D" disabled=""><label>O número de cliques no botão</label></div>
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question" id="q5">
+                <div class="question-header">
+                    <span class="question-number">5</span>
+                    Para alternar entre tema claro e escuro, qual propriedade JavaScript alteramos no <code>&lt;body&gt;</code>?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q5" value="A" disabled=""><label><code>document.body.className</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q5" value="B" disabled=""><label><code>document.body.innerHTML</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q5" value="C" disabled=""><label><code>document.body.value</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q5" value="D" disabled=""><label><code>document.body.src</code></label></div>
+                </div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question" id="q6">
+                <div class="question-header">
+                    <span class="question-number">6</span>
+                    Qual método JavaScript é usado para capturar um elemento pelo seu <code>id</code>?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q6" value="A" disabled=""><label><code>document.getElementById("nomeId")</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q6" value="B" disabled=""><label><code>document.querySelectorId("nomeId")</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q6" value="C" disabled=""><label><code>document.getId("nomeId")</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q6" value="D" disabled=""><label><code>document.findId("nomeId")</code></label></div>
+                </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question" id="q7">
+                <div class="question-header">
+                    <span class="question-number">7</span>
+                    Em um formulário com <code>input type="checkbox"</code>, qual propriedade JavaScript informa se a caixa está marcada?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q7" value="A" disabled=""><label><code>.checked</code> — retorna <code>true</code> se marcado ou <code>false</code> se desmarcado</label></div>
+                    <div class="option disabled"><input type="radio" name="q7" value="B" disabled=""><label><code>.value</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q7" value="C" disabled=""><label><code>.innerText</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q7" value="D" disabled=""><label><code>.className</code></label></div>
+                </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="question" id="q8">
+                <div class="question-header">
+                    <span class="question-number">8</span>
+                    Em um formulário com botões de rádio (radio), como pegamos a opção selecionada?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q8" value="A" disabled=""><label><code>document.querySelector('input[name="endereco"]:checked').value</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q8" value="B" disabled=""><label><code>document.getElementById("endereco").value</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q8" value="C" disabled=""><label><code>document.getRadio("endereco").value</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q8" value="D" disabled=""><label><code>document.checked("endereco")</code></label></div>
+                </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question" id="q9">
+                <div class="question-header">
+                    <span class="question-number">9</span>
+                    Qual a função de <code>parseFloat()</code> em um carrinho de compras?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q9" value="A" disabled=""><label>Converter o valor de texto (String) do input para número decimal, permitindo cálculos matemáticos</label></div>
+                    <div class="option disabled"><input type="radio" name="q9" value="B" disabled=""><label>Arredondar o valor para cima</label></div>
+                    <div class="option disabled"><input type="radio" name="q9" value="C" disabled=""><label>Transformar número em texto</label></div>
+                    <div class="option disabled"><input type="radio" name="q9" value="D" disabled=""><label>Formatar o valor com vírgula</label></div>
+                </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question" id="q10">
+                <div class="question-header">
+                    <span class="question-number">10</span>
+                    Como exibimos um valor numérico com 2 casas decimais e vírgula no lugar do ponto?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q10" value="A" disabled=""><label><code>valor.toFixed(2).replace('.', ',')</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q10" value="B" disabled=""><label><code>valor.format(2, ',')</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q10" value="C" disabled=""><label><code>valor.toComma(2)</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q10" value="D" disabled=""><label><code>valor.round(2).comma()</code></label></div>
+                </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question" id="q11">
+                <div class="question-header">
+                    <span class="question-number">11</span>
+                    No controle de estoque, qual estrutura lógica usamos para verificar se a quantidade solicitada cabe no estoque?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q11" value="A" disabled=""><label>Estrutura condicional <code>if / else</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q11" value="B" disabled=""><label>Laço de repetição <code>for</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q11" value="C" disabled=""><label>Função <code>setTimeout()</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q11" value="D" disabled=""><label>Comando <code>alert()</code></label></div>
+                </div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="question tf" id="q12">
+                <div class="question-header">
+                    <span class="question-number">12</span>
+                    A Splash Screen permanece visível durante toda a execução do aplicativo, sem nunca ser ocultada.
+                </div>
+                <div class="options tf">
+                    <div class="option disabled"><input type="radio" name="q12" value="V" disabled=""><label>✅ Verdadeiro</label></div>
+                    <div class="option correct disabled"><input type="radio" name="q12" value="F" disabled=""><label>❌ Falso</label></div>
+                </div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="question tf" id="q13">
+                <div class="question-header">
+                    <span class="question-number">13</span>
+                    Um mesmo <code>name</code> em vários <code>input type="radio"</code> agrupa os botões para que apenas um seja selecionado por vez.
+                </div>
+                <div class="options tf">
+                    <div class="option correct disabled"><input type="radio" name="q13" value="V" disabled=""><label>✅ Verdadeiro</label></div>
+                    <div class="option disabled"><input type="radio" name="q13" value="F" disabled=""><label>❌ Falso</label></div>
+                </div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="question" id="q14">
+                <div class="question-header">
+                    <span class="question-number">14</span>
+                    Para alternar entre telas, podemos usar CSS (<code>display: none/block</code>) manipulando o estilo dos elementos via JavaScript. Qual comando faz isso?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q14" value="A" disabled=""><label><code>document.getElementById("tela").style.display = "block";</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q14" value="B" disabled=""><label><code>document.getElementById("tela").display = true;</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q14" value="C" disabled=""><label><code>document.trocarTela("tela");</code></label></div>
+                    <div class="option disabled"><input type="radio" name="q14" value="D" disabled=""><label><code>document.getElementById("tela").show();</code></label></div>
+                </div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="question" id="q15">
+                <div class="question-header">
+                    <span class="question-number">15</span>
+                    Em uma aplicação bem estruturada, qual é a divisão de responsabilidades entre HTML, CSS e JavaScript?
+                </div>
+                <div class="options">
+                    <div class="option correct disabled"><input type="radio" name="q15" value="A" disabled=""><label>HTML = estrutura; CSS = estilo; JavaScript = comportamento e lógica</label></div>
+                    <div class="option disabled"><input type="radio" name="q15" value="B" disabled=""><label>HTML = estilo; CSS = lógica; JavaScript = estrutura</label></div>
+                    <div class="option disabled"><input type="radio" name="q15" value="C" disabled=""><label>HTML = banco de dados; CSS = servidor; JavaScript = rede</label></div>
+                    <div class="option disabled"><input type="radio" name="q15" value="D" disabled=""><label>Os três fazem exatamente a mesma coisa</label></div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;" class="no-print">
+                <button class="btn" onclick="corrigirQuiz()">✅ Verificar Respostas</button>
+                <button class="btn btn-secondary" onclick="limparQuiz()">🔄 Limpar Respostas</button>
+            </div>
+
+            <!-- RESULTADOS -->
+            <div class="result-box show" id="resultadoQuiz">
+                <h3 style="color:#2563eb; margin-bottom: 8px;">📊 Relatório de Desempenho do Aluno</h3>
+                <div class="score" id="pontuacao">15 / 15</div>
+                <div id="feedback"><div class="feedback-item correct">✅ <strong>Questão 1:</strong> Correta! <div class="explicacao">A Splash Screen é a tela de abertura que exibe o logo e uma mensagem de carregamento antes do conteúdo principal.</div></div><div class="feedback-item correct">✅ <strong>Questão 2:</strong> Correta! <div class="explicacao">setTimeout() agenda a execução de uma função após um tempo especificado em milissegundos.</div></div><div class="feedback-item correct">✅ <strong>Questão 3:</strong> Correta! <div class="explicacao">display: none; oculta o elemento — essencial para telas que começam invisíveis (como #conteudo, #cadastro) e são reveladas via JavaScript.</div></div><div class="feedback-item correct">✅ <strong>Questão 4:</strong> Correta! <div class="explicacao">A variável de controle (ex: numero, indiceAtual) guarda a posição atual na sequência. É incrementada ou decrementada pelos botões de navegação.</div></div><div class="feedback-item correct">✅ <strong>Questão 5:</strong> Correta! <div class="explicacao">document.body.className é a propriedade que define a(s) classe(s) CSS do body.</div></div><div class="feedback-item correct">✅ <strong>Questão 6:</strong> Correta! <div class="explicacao">getElementById() é o método padrão para selecionar um elemento pelo seu id.</div></div><div class="feedback-item correct">✅ <strong>Questão 7:</strong> Correta! <div class="explicacao">A propriedade .checked é exclusiva de checkboxes e radios, retornando true/false conforme o estado do campo.</div></div><div class="feedback-item correct">✅ <strong>Questão 8:</strong> Correta! <div class="explicacao">querySelector com :checked seleciona o radio que está marcado no grupo.</div></div><div class="feedback-item correct">✅ <strong>Questão 9:</strong> Correta! <div class="explicacao">parseFloat() converte a string do input em número decimal para permitir cálculos.</div></div><div class="feedback-item correct">✅ <strong>Questão 10:</strong> Correta! <div class="explicacao">toFixed(2) limita a 2 casas decimais; replace(".", ",") troca o ponto pela vírgula.</div></div><div class="feedback-item correct">✅ <strong>Questão 11:</strong> Correta! <div class="explicacao">A estrutura if/else é ideal para comparar a quantidade solicitada com o estoque disponível.</div></div><div class="feedback-item correct">✅ <strong>Questão 12:</strong> Correta! <div class="explicacao">Falso. A Splash Screen é exibida apenas no início e depois é ocultada para dar lugar ao conteúdo.</div></div><div class="feedback-item correct">✅ <strong>Questão 13:</strong> Correta! <div class="explicacao">Verdadeiro. Radios com o mesmo name formam um grupo onde apenas um pode estar marcado.</div></div><div class="feedback-item correct">✅ <strong>Questão 14:</strong> Correta! <div class="explicacao">style.display = "block" torna o elemento visível novamente após ter sido ocultado.</div></div><div class="feedback-item correct">✅ <strong>Questão 15:</strong> Correta! <div class="explicacao">HTML = estrutura; CSS = aparência; JavaScript = comportamento e lógica das decisões.</div></div></div>
+                <div style="margin-top: 18px;" class="no-print">
+                    <button class="btn btn-success" onclick="window.print()">🖨️ Imprimir / Salvar em PDF</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer-card">
+            <div class="destaque-footer">
+                📌 <strong>ATENÇÃO ALUNOS:</strong> Após testar os 5 laboratórios no OneCompiler e concluir o Quiz, salve os seus códigos em formato HTML e envie o relatório pelo formulário oficial.
+            </div>
+
+            <h4 style="margin-bottom: 12px; color: #2563eb;">📋 Formulário Oficial de Entrega</h4>
+
+            <div class="footer-links">
+                <a href="https://forms.gle/zbUB57A4FteUDsKSA" target="_blank" class="footer-link">
+                    <span style="font-size:1.4rem;">📝</span>
+                    <div style="text-align:left; flex:1;">
+                        <strong>Formulário de Entrega do Relatório</strong>
+                        <small style="display:block; color:#64748b; font-size:0.75rem;">Envio dos arquivos HTML + Atividades de Telas</small>
+                    </div>
+                    <span style="font-size:1.2rem; font-weight:bold; color:#28a745;">→</span>
+                </a>
+            </div>
+
+            <p style="margin-top: 18px; font-size: 0.75rem; color: #64748b;">
+                📱 Material Pedagógico: Tema 06 • Disciplina: Programação Mobile • 2026
+            </p>
+        </footer>
+
+    </div>
+
+    <button class="btn-top no-print" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Topo</button>
+
+    <!-- SCRIPTS -->
+    <script>
+        const CODIGOS_TEMA6 = {
+            'c-lab1': `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tela Splash</title>
+    <style>
+        body { text-align: center; background: #f8fafc; font-family: sans-serif; padding: 20px; }
+        .card { background: white; max-width: 300px; margin: 30px auto; padding: 20px; border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        #splash { border: 3px solid #2563eb; }
+        #conteudo { display: none; }
+        h1 { color: #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="card" id="splash">
+        <h1>📱 Meu Aplicativo</h1>
+        <p id="mensagem">Carregando...</p>
+    </div>
+
+    <div class="card" id="conteudo">
+        <h2>🏠 Página Inicial</h2>
+        <p>Bem-vindo ao aplicativo!</p>
+    </div>
+
+    <script>
+        let mensagem = document.getElementById("mensagem");
+
+        setTimeout(function() {
+            mensagem.innerText = "⚙️ Preparando...";
+        }, 1000);
+
+        setTimeout(function() {
+            mensagem.innerText = "🚀 Quase pronto...";
+        }, 2000);
+
+        setTimeout(function() {
+            document.getElementById("splash").style.display = "none";
+            document.getElementById("conteudo").style.display = "block";
+        }, 3000);
+    <\/script>
+</body>
+</html>`,
+
+            'c-lab2': `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Playlist Musical</title>
+    <style>
+        body { text-align: center; background: #f5f3ff; font-family: sans-serif; padding: 20px; }
+        .card { background: white; max-width: 320px; margin: 30px auto; padding: 18px; border: 2px solid #8b5cf6; border-radius: 12px; }
+        img { width: 200px; height: 200px; object-fit: cover; border-radius: 12px; }
+        button { padding: 8px 15px; margin: 5px; background: #8b5cf6; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        button:hover { background: #7c3aed; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🎵 Minha Playlist</h2>
+        <img id="capa" src="https://picsum.photos/id/1015/200/200">
+        <p id="titulo">Música 1</p>
+        <button onclick="anterior()">⬅️</button>
+        <button onclick="proxima()">➡️</button>
+    </div>
+
+    <script>
+        let numero = 1;
+        function mostrar() {
+            let capa = document.getElementById("capa");
+            let titulo = document.getElementById("titulo");
+            if (numero === 1) {
+                capa.src = "https://picsum.photos/id/1015/200/200";
+                titulo.innerText = "Música 1";
+            } else if (numero === 2) {
+                capa.src = "https://picsum.photos/id/1016/200/200";
+                titulo.innerText = "Música 2";
+            } else {
+                capa.src = "https://picsum.photos/id/1018/200/200";
+                titulo.innerText = "Música 3";
+            }
+        }
+        function proxima() {
+            numero++;
+            if (numero > 3) { numero = 1; }
+            mostrar();
+        }
+        function anterior() {
+            numero--;
+            if (numero < 1) { numero = 3; }
+            mostrar();
+        }
+    <\/script>
+</body>
+</html>`,
+
+            'c-lab3': `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda de Contatos</title>
+    <style>
+        body { text-align: center; background: #ecfeff; color: #083344; font-family: sans-serif; padding: 20px; }
+        .card { max-width: 300px; margin: 30px auto; padding: 20px; background: white; border: 2px solid #06b6d4; border-radius: 12px; }
+        h2 { color: #0891b2; }
+        button { padding: 8px 15px; margin: 5px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .claro { background: #67e8f9; color: #083344; }
+        .escuro { background: #164e63; color: white; }
+        body.escuro { background: #083344; color: white; }
+        body.escuro .card { background: #0e7490; border-color: #67e8f9; }
+        body.escuro h2 { color: #67e8f9; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>📒 Agenda de Contatos</h2>
+        <p>Escolha o tema:</p>
+        <button class="claro" onclick="claro()">☀️ Claro</button>
+        <button class="escuro" onclick="escuro()">🌙 Escuro</button>
+        <p id="saida">Tema claro</p>
+    </div>
+
+    <script>
+        function claro() {
+            document.body.className = "";
+            document.getElementById("saida").innerText = "☀️ Tema claro";
+        }
+        function escuro() {
+            document.body.className = "escuro";
+            document.getElementById("saida").innerText = "🌙 Tema escuro";
+        }
+    <\/script>
+</body>
+</html>`,
+
+            'c-lab4': `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Mochila de Viagem</title>
+    <style>
+        body { text-align: center; background: #f0fdf4; font-family: sans-serif; padding: 20px; }
+        .card { background: white; max-width: 320px; margin: 30px auto; padding: 20px; border: 2px solid #16a34a; border-radius: 12px; }
+        h2 { color: #15803d; }
+        label { display: block; margin: 8px; text-align: left; }
+        button { margin-top: 15px; padding: 10px 20px; background: #16a34a; color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #15803d; }
+        #saida { padding: 10px; background: #dcfce7; border-radius: 8px; margin-top: 12px; font-size: 0.9rem; min-height: 20px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🎒 Mochila de Viagem</h2>
+        <p>O que levar?</p>
+        <label><input type="checkbox" id="roupas"> 👕 Roupas</label>
+        <label><input type="checkbox" id="higiene"> 🧴 Kit de higiene</label>
+        <label><input type="checkbox" id="eletronicos"> 🔌 Eletrônicos</label>
+        <button onclick="fecharMochila()">Fechar Mochila</button>
+        <p id="saida"></p>
+    </div>
+
+    <script>
+        function fecharMochila() {
+            let itens = "";
+            if (document.getElementById("roupas").checked) {
+                itens += "Roupas ";
+            }
+            if (document.getElementById("higiene").checked) {
+                itens += "Kit de higiene ";
+            }
+            if (document.getElementById("eletronicos").checked) {
+                itens += "Eletrônicos ";
+            }
+            if (itens === "") {
+                itens = "Nenhum item selecionado";
+            }
+            document.getElementById("saida").innerText = "Mochila pronta: " + itens;
+        }
+    <\/script>
+</body>
+</html>`,
+
+            'c-lab5': `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Múltiplas Telas</title>
+    <style>
+        body { text-align: center; background: #f8fafc; font-family: sans-serif; padding: 20px; }
+        .card { background: white; max-width: 320px; margin: 30px auto; padding: 20px; border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        #tela-splash { border: 3px solid #2563eb; }
+        #tela-cadastro { display: none; }
+        #tela-confirmacao { display: none; border: 3px solid #16a34a; }
+        input { width: 90%; padding: 8px; margin: 6px 0; border-radius: 6px; border: 1px solid #cbd5e1; }
+        button { margin-top: 10px; padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card" id="tela-splash">
+        <h1>📱 Meu App</h1>
+        <p id="msg-splash">Carregando...</p>
+    </div>
+
+    <div class="card" id="tela-cadastro">
+        <h2>👤 Cadastro</h2>
+        <input type="text" id="nome" placeholder="Seu nome">
+        <input type="text" id="cidade" placeholder="Sua cidade">
+        <button onclick="confirmar()">Cadastrar</button>
+    </div>
+
+    <div class="card" id="tela-confirmacao">
+        <h2>✅ Cadastro Realizado</h2>
+        <p id="resumo"></p>
+        <button onclick="voltar()">Voltar ao início</button>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById("msg-splash").innerText = "⚙️ Preparando...";
+        }, 1000);
+
+        setTimeout(function() {
+            document.getElementById("tela-splash").style.display = "none";
+            document.getElementById("tela-cadastro").style.display = "block";
+        }, 2000);
+
+        function confirmar() {
+            let nome = document.getElementById("nome").value;
+            let cidade = document.getElementById("cidade").value;
+            document.getElementById("resumo").innerText =
+                "Bem-vindo(a), " + nome + " de " + cidade + "!";
+            document.getElementById("tela-cadastro").style.display = "none";
+            document.getElementById("tela-confirmacao").style.display = "block";
+        }
+
+        function voltar() {
+            document.getElementById("tela-confirmacao").style.display = "none";
+            document.getElementById("tela-cadastro").style.display = "block";
+        }
+    <\/script>
+</body>
+</html>`
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('c-lab1').textContent = CODIGOS_TEMA6['c-lab1'];
+            document.getElementById('c-lab2').textContent = CODIGOS_TEMA6['c-lab2'];
+            document.getElementById('c-lab3').textContent = CODIGOS_TEMA6['c-lab3'];
+            document.getElementById('c-lab4').textContent = CODIGOS_TEMA6['c-lab4'];
+            document.getElementById('c-lab5').textContent = CODIGOS_TEMA6['c-lab5'];
+        });
+
+        function copiarCodigo(btn, key) {
+            const rawCode = CODIGOS_TEMA6[key];
+            navigator.clipboard.writeText(rawCode).then(() => {
+                const fb = document.getElementById('feedback-' + key);
+                if (fb) {
+                    fb.classList.add('show');
+                    setTimeout(() => fb.classList.remove('show'), 2000);
+                }
+                const orig = btn.textContent;
+                btn.textContent = '✅ Copiado!';
+                setTimeout(() => btn.textContent = orig, 2000);
+            });
+        }
+
+        function executarOneCompiler(key) {
+            const rawCode = CODIGOS_TEMA6[key];
+            const url = 'https://onecompiler.com/html?code=' + encodeURIComponent(rawCode);
+            window.open(url, '_blank');
+        }
+
+        const gabarito = {
+            q1: 'A', q2: 'A', q3: 'A', q4: 'A', q5: 'A',
+            q6: 'A', q7: 'A', q8: 'A', q9: 'A', q10: 'A',
+            q11: 'A', q12: 'F', q13: 'V', q14: 'A', q15: 'A'
+        };
+
+        const explicacoes = {
+            q1: 'A Splash Screen é a tela de abertura que exibe o logo e uma mensagem de carregamento antes do conteúdo principal.',
+            q2: 'setTimeout() agenda a execução de uma função após um tempo especificado em milissegundos.',
+            q3: 'display: none; oculta o elemento — essencial para telas que começam invisíveis (como #conteudo, #cadastro) e são reveladas via JavaScript.',
+            q4: 'A variável de controle (ex: numero, indiceAtual) guarda a posição atual na sequência. É incrementada ou decrementada pelos botões de navegação.',
+            q5: 'document.body.className é a propriedade que define a(s) classe(s) CSS do body.',
+            q6: 'getElementById() é o método padrão para selecionar um elemento pelo seu id.',
+            q7: 'A propriedade .checked é exclusiva de checkboxes e radios, retornando true/false conforme o estado do campo.',
+            q8: 'querySelector com :checked seleciona o radio que está marcado no grupo.',
+            q9: 'parseFloat() converte a string do input em número decimal para permitir cálculos.',
+            q10: 'toFixed(2) limita a 2 casas decimais; replace(".", ",") troca o ponto pela vírgula.',
+            q11: 'A estrutura if/else é ideal para comparar a quantidade solicitada com o estoque disponível.',
+            q12: 'Falso. A Splash Screen é exibida apenas no início e depois é ocultada para dar lugar ao conteúdo.',
+            q13: 'Verdadeiro. Radios com o mesmo name formam um grupo onde apenas um pode estar marcado.',
+            q14: 'style.display = "block" torna o elemento visível novamente após ter sido ocultado.',
+            q15: 'HTML = estrutura; CSS = aparência; JavaScript = comportamento e lógica das decisões.'
+        };
+
+        function corrigirQuiz() {
+            let acertos = 0;
+            let feedbackHTML = '';
+
+            for (let [id, gab] of Object.entries(gabarito)) {
+                const sel = document.querySelector(`input[name="${id}"]:checked`);
+                const qDiv = document.getElementById(id);
+                const opts = qDiv.querySelectorAll('.option');
+
+                opts.forEach(opt => {
+                    const r = opt.querySelector('input[type="radio"]');
+                    if (r.value === gab) opt.classList.add('correct');
+                    else if (r.checked) opt.classList.add('wrong');
+                    r.disabled = true;
+                    opt.classList.add('disabled');
+                });
+
+                const num = id.replace('q', '');
+                if (sel && sel.value === gab) {
+                    acertos++;
+                    feedbackHTML += `<div class="feedback-item correct">✅ <strong>Questão ${num}:</strong> Correta! <div class="explicacao">${explicacoes[id]}</div></div>`;
+                } else {
+                    feedbackHTML += `<div class="feedback-item wrong">❌ <strong>Questão ${num}:</strong> Incorreta. <div class="explicacao">${explicacoes[id]}</div></div>`;
+                }
+            }
+
+            document.getElementById('pontuacao').innerText = acertos + ' / 15';
+            document.getElementById('feedback').innerHTML = feedbackHTML;
+            document.getElementById('resultadoQuiz').classList.add('show');
+            document.getElementById('resultadoQuiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function limparQuiz() {
+            document.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; r.disabled = false; });
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('correct', 'wrong', 'disabled'));
+            document.getElementById('resultadoQuiz').classList.remove('show');
+            window.scrollTo({ top: document.getElementById('sec-quiz').offsetTop - 20, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                if (this.classList.contains('disabled')) return;
+                const r = this.querySelector('input[type="radio"]');
+                if (r) r.checked = true;
+            });
+        });
+    </script>
+
+</body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endereço de Entrega</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+        }
+
+        .opcao {
+            display: block;
+            margin: 15px;
+            font-size: 18px;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        #saida {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>📦 Endereço de Entrega</h2>
+
+        <label class="opcao">
+            <input
+                type="radio"
+                name="endereco"
+                value="casa"
+                checked
+                onchange="mostrarEndereco()"
+            >
+            🏠 Casa
+        </label>
+
+        <label class="opcao">
+            <input
+                type="radio"
+                name="endereco"
+                value="sitio"
+                onchange="mostrarEndereco()"
+            >
+            🌳 Sítio
+        </label>
+
+        <label class="opcao">
+            <input
+                type="radio"
+                name="endereco"
+                value="trabalho"
+                onchange="mostrarEndereco()"
+            >
+            💼 Trabalho
+        </label>
+
+        <p id="saida"></p>
+    </div>
+
+    <script>
+        function mostrarEndereco() {
+            let selecionado = document.querySelector(
+                'input[name="endereco"]:checked'
+            );
+
+            let endereco = selecionado.value;
+            let saida = document.getElementById("saida");
+
+            if (endereco === "casa") {
+                saida.innerText = "📦 O pedido será entregue em sua casa!";
+
+            } else if (endereco === "sitio") {
+                saida.innerText = "📦 O pedido será entregue no sítio!";
+
+            } else {
+                saida.innerText = "📦 O pedido será entregue no trabalho!";
+            }
+        }
+
+        // Mostra a opção selecionada ao carregar a página
+        mostrarEndereco();
+    </script>
+
+</body>
+</html>

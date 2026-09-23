@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formas de Pagamento</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+        }
+
+        select {
+            padding: 10px;
+            margin: 15px;
+            width: 200px;
+        }
+
+        #saida {
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .pix {
+            color: green;
+            background-color: #e8f5e9;
+        }
+
+        .cartao {
+            color: blue;
+            background-color: #e3f2fd;
+        }
+
+        .dinheiro {
+            color: #b8860b;
+            background-color: #fff8dc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Forma de Pagamento</h2>
+
+        <p>Total da compra: <strong>R$ 100,00</strong></p>
+
+        <label for="pagamento">Escolha o pagamento:</label>
+
+        <select id="pagamento" onchange="calcularPagamento()">
+            <option value="pix">PIX</option>
+            <option value="cartao">Cartão</option>
+            <option value="dinheiro">Dinheiro</option>
+        </select>
+
+        <p id="saida"></p>
+    </div>
+
+    <script>
+        function calcularPagamento() {
+            let total = 100;
+            let pagamento = document.getElementById("pagamento").value;
+            let saida = document.getElementById("saida");
+
+            let valorFinal;
+
+            if (pagamento === "pix") {
+                valorFinal = total * 0.95;
+
+                saida.innerText =
+                    "PIX: Total a pagar R$ " +
+                    valorFinal.toFixed(2).replace(".", ",");
+
+                saida.className = "pix";
+
+            } else if (pagamento === "cartao") {
+                valorFinal = total;
+
+                saida.innerText =
+                    "Cartão: Total a pagar R$ " +
+                    valorFinal.toFixed(2).replace(".", ",");
+
+                saida.className = "cartao";
+
+            } else {
+                valorFinal = total * 0.90;
+
+                saida.innerText =
+                    "Dinheiro: Total a pagar R$ " +
+                    valorFinal.toFixed(2).replace(".", ",");
+
+                saida.className = "dinheiro";
+            }
+        }
+
+        // Mostra o valor assim que a página carrega
+        calcularPagamento();
+    </script>
+
+</body>
+</html>

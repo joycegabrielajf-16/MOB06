@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido de Lanche</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        .formulario {
+            width: 350px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input[type="text"],
+        select {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        .adicionais {
+            margin: 10px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #resultado {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="formulario">
+        <h2>🍔Pedido de Lanche</h2>
+
+        <label>Nome:</label>
+        <input type="text" id="nome" placeholder="Digite seu nome">
+
+        <label>Tamanho:</label>
+        <select id="tamanho">
+            <option value="Pequeno">Pequeno</option>
+            <option value="Médio">Médio</option>
+            <option value="Grande">Grande</option>
+        </select>
+
+        <p>Forma de pagamento:</p>
+
+        <input type="radio" name="pagamento" value="Pix" checked>
+        <label>Pix</label>
+
+        <input type="radio" name="pagamento" value="Cartão">
+        <label>Cartão</label>
+
+        <input type="radio" name="pagamento" value="Dinheiro">
+        <label>Dinheiro</label>
+
+        <p>Adicionais:</p>
+
+        <div class="adicionais">
+            <input type="checkbox" id="fritas">
+            <label for="fritas">🍟Fritas</label>
+            <br>
+
+            <input type="checkbox" id="refrigerante">
+            <label for="refrigerante">🥤Refrigerante</label>
+            <br>
+
+            <input type="checkbox" id="sobremesa">
+            <label for="sobremesa">🍰Sobremesa</label>
+        </div>
+
+        <button onclick="finalizarPedido()">Finalizar Pedido</button>
+
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function finalizarPedido() {
+            let nome = document.getElementById("nome").value;
+            let tamanho = document.getElementById("tamanho").value;
+
+            let pagamento = document.querySelector(
+                'input[name="pagamento"]:checked'
+            ).value;
+
+            let adicionais = "";
+
+            if (document.getElementById("fritas").checked) {
+                adicionais += "🍟Fritas ";
+            }
+
+            if (document.getElementById("refrigerante").checked) {
+                adicionais += "🥤Refrigerante ";
+            }
+
+            if (document.getElementById("sobremesa").checked) {
+                adicionais += "🍰Sobremesa ";
+            }
+
+            if (adicionais === "") {
+                adicionais = "Nenhum adicional";
+            }
+
+            document.getElementById("resultado").innerText =
+                "🍔Resumo do Pedido\n" +
+                "Nome: " + nome +
+                "\nTamanho: " + tamanho +
+                "\nPagamento: " + pagamento +
+                "\nAdicionais: " + adicionais;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+        }
+
+        input {
+            width: 80px;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        #saida {
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .ok {
+            color: green;
+            background-color: #e8f5e9;
+        }
+
+        .no {
+            color: red;
+            background-color: #ffebee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Controle de Estoque</h2>
+
+        <p>Controles disponíveis em estoque: <strong>3 unidades</strong></p>
+
+        <label for="quantidade">Quantidade desejada:</label>
+
+        <input
+            type="number"
+            id="quantidade"
+            min="0"
+            value="0"
+            onchange="verificarEstoque()"
+        >
+
+        <p id="saida"></p>
+    </div>
+
+    <script>
+        function verificarEstoque() {
+            let estoque = 3;
+            let quantidade = Number(
+                document.getElementById("quantidade").value
+            );
+
+            let saida = document.getElementById("saida");
+
+            if (quantidade <= estoque) {
+                saida.innerText = "✅ Quantidade disponível em estoque!";
+                saida.className = "ok";
+            } else {
+                saida.innerText = "❌ Estoque ultrapassado! Temos apenas 3 unidades.";
+                saida.className = "no";
+            }
+        }
+    </script>
+
+</body>
+</html>
